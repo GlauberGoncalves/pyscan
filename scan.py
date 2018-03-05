@@ -19,11 +19,11 @@ def main():
     args = parser.parse_args() #(3)
     
     ip = Ip(str(args.h))
-    lista = ping_range_thread( ip.lista_de_ips )
+    lista = ping_range_thread( ip.lista_de_ips )    
 
     
     for ip in  ip.ordenaListaIps( lista ):
-        print("- {} online".format(ip))
+        print("- {} online".format(ip))    
     
 if (__name__ == '__main__'):
     main()

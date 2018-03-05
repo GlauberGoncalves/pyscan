@@ -19,7 +19,7 @@ class Ip:
             prefixo_ip = "{}.{}.{}.".format(faixas[0], faixas[1], faixas[2])
             self.lista_de_ips = [(prefixo_ip + str(i)) for i in range(inicio, fim + 1)]
         else:
-            self.lista_de_ips = "{}.{}.{}.{}".format(faixas[0],faixas[1],faixas[2],faixas[3])
+            self.lista_de_ips = ["{}.{}.{}.{}".format(faixas[0],faixas[1],faixas[2],faixas[3])]
     
     def ordenaListaIps(self, lista_ips):
         lista_ordenada = []
