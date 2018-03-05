@@ -10,10 +10,10 @@ import argparse
 # print( ip.ordenaListaIps( lista ) )
 
 def main():
-    print("#############################################")
-    print("\n\nAnalisando ips... Aguarde um momento\n\n")
-    print("#############################################\n\n")
-        
+    print("\n\t####################################")
+    print("\tAnalisando ips... Aguarde um momento")
+    print("\t####################################\n\n")
+
     parser = argparse.ArgumentParser(description='range de ips')  # (1)
     parser.add_argument('--h')  #(2)     
     args = parser.parse_args() #(3)
