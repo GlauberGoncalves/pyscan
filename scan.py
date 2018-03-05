@@ -5,7 +5,7 @@ ip = Ip("192.168.0.1/254")
 
 lista = ping_range_thread(ip.lista_de_ips)
 
-print( lista )
+print( ip.ordenaListaIps( lista ) )
 # ping_range(ip.lista_de_ips)
 
 # if ( quiet_ping("192.168.0.1", 2000, 4) ):

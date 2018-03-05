@@ -1,4 +1,5 @@
 import string
+from operator import itemgetter, attrgetter
 
 class Ip:    
     def __init__(self, range_ip):
@@ -19,8 +20,18 @@ class Ip:
             self.lista_de_ips = [(prefixo_ip + str(i)) for i in range(inicio, fim + 1)]
         else:
             self.lista_de_ips = "{}.{}.{}.{}".format(faixas[0],faixas[1],faixas[2],faixas[3])
-            
+    
+    def ordenaListaIps(self, lista_ips):
+        lista_ordenada = []
+        aux = []
         
+        for ip in lista_ips:
+            aux.append( [ip, ( int( ip.split(".")[3] ) ) ] )
+
+        lista_ordenada = sorted(aux, key=itemgetter(1))
+        # print( lista_ordenada )
+        return [ ip[0] for ip in lista_ordenada ]
+        # return [ ip[0] for ip in lista_ordenada)]
 
 
 
