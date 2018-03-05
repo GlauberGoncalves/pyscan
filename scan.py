@@ -1,14 +1,30 @@
 from Ip import *
 from Ping import *
+import sys
+import argparse
+#  testes
+# ip = Ip("192.168.137.1/254")
 
-ip = Ip("192.168.0.1/254")
+# lista = ping_range_thread(ip.lista_de_ips)
 
-lista = ping_range_thread(ip.lista_de_ips)
+# print( ip.ordenaListaIps( lista ) )
 
-print( ip.ordenaListaIps( lista ) )
-# ping_range(ip.lista_de_ips)
+def main():
+    print("#############################################")
+    print("\n\nAnalisando ips... Aguarde um momento\n\n")
+    print("#############################################\n\n")
+        
+    parser = argparse.ArgumentParser(description='range de ips')  # (1)
+    parser.add_argument('--h')  #(2)     
+    args = parser.parse_args() #(3)
+    
+    ip = Ip(str(args.h))
+    lista = ping_range_thread( ip.lista_de_ips )
 
-# if ( quiet_ping("192.168.0.1", 2000, 4) ):
-#     print("Online")
-# else :
-#     print("off line")
+    
+    for ip in  ip.ordenaListaIps( lista ):
+        print("- {} online".format(ip))
+    
+if (__name__ == '__main__'):
+    main()
+    
