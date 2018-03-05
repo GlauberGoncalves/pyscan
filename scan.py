@@ -1,9 +1,14 @@
 from Ip import *
 from Ping import *
 
-ip = Ip("192.168.0.1/60")
+ip = Ip("192.168.0.1/254")
 
-if ( quiet_ping("192.168.0.1", 2000, 4) ):
-    print("Online")
-else :
-    print("off line")
+lista = ping_range_thread(ip.lista_de_ips)
+
+print( lista )
+# ping_range(ip.lista_de_ips)
+
+# if ( quiet_ping("192.168.0.1", 2000, 4) ):
+#     print("Online")
+# else :
+#     print("off line")

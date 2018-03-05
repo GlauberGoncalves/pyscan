@@ -60,6 +60,8 @@
 #=============================================================================#
 import argparse
 import os, sys, socket, struct, select, time, signal
+from threading import Thread
+import threading
 
 __description__ = 'A pure python ICMP ping implementation using raw sockets.'
 
@@ -351,7 +353,7 @@ def verbose_ping(hostname, timeout=WAIT_TIMEOUT, count=NUM_PACKETS,
     dump_stats(myStats)
 
 #=============================================================================#
-def quiet_ping(hostname, timeout=WAIT_TIMEOUT, count=NUM_PACKETS,
+def quiet_ping(hostname, online_list , timeout=WAIT_TIMEOUT, count=NUM_PACKETS,
                packet_size=PACKET_SIZE, path_finder=False):
     """
     Same as verbose_ping, but the results are returned as tuple
@@ -397,5 +399,28 @@ def quiet_ping(hostname, timeout=WAIT_TIMEOUT, count=NUM_PACKETS,
     # return tuple(max_rtt, min_rtt, avrg_rtt, percent_lost)
     # return myStats.maxTime, myStats.minTime, myStats.avrgTime, myStats.fracLoss
     if(myStats.maxTime):
+        online_list.append(hostname)
         return True
     return False
+
+# =====================================================================
+def ping_range(host_list):
+    result = []
+    for ip in host_list:        
+        if ( quiet_ping( ip, 1000, 1) ):
+            result.append(ip)            
+
+
+def ping_range_thread(ip_list):
+    quantidade_de_threads = 100
+    online_list = []
+    workes = [Thread(target=quiet_ping, args=(ip, online_list , )) for ip in ip_list ]
+    
+    for w in workes:
+        w.start()
+
+        while(threading.active_count() > quantidade_de_threads ):
+            time.sleep(0.2)            
+    
+    [ w.join() for w in workes  ]
+    return online_list
